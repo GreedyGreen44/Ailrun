@@ -1,5 +1,5 @@
 # Overview
-Pretty staightforward app to get info from [globe.adsbexchange.com](https://globe.adsbexchange.com/)
+Pretty straightforward app to get info from [globe.adsbexchange.com](https://globe.adsbexchange.com/)
 
 For now supports only getting aircrafts information from defined map box and saving them to csv file periodically
 
