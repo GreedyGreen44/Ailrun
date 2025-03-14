@@ -10,20 +10,20 @@ import (
 )
 
 type AircraftInfo struct {
-	Hexcode         string
-	Lat             float32
-	Long            float32
-	Callsign        string
-	AcType          string
-	AcReg           string
-	Squawk          string
-	DbFlag          uint8
-	AcCat           uint8
-	AcSrc           uint8
-	HbarFt          uint16
-	HgeoFt          uint16
-	SpdGroundKtsX10 int16
-	Timestamp       uint64
+	Hexcode      string
+	Lat          float32
+	Long         float32
+	Callsign     string
+	AcType       string
+	AcReg        string
+	Squawk       string
+	DbFlag       uint8
+	AcCat        uint8
+	AcSrc        uint8
+	HbarFt       uint16
+	HgeoFt       uint16
+	SpdGroundKts float32
+	Timestamp    uint64
 }
 
 var (
@@ -53,30 +53,20 @@ func timerTick(configMap map[string]string) (resultCode int) {
 	}
 	aircrafts, resultCode := processData(decompressedData)
 
-	for i, aircraft := range aircrafts {
-		fmt.Println(i)
-		fmt.Println(aircraft.Hexcode)
-		fmt.Println(aircraft.Lat)
-		fmt.Println(aircraft.Long)
-		fmt.Println(aircraft.Callsign)
-		fmt.Println(aircraft.AcType)
-		fmt.Println(aircraft.AcReg)
-		fmt.Println(aircraft.Squawk)
-		fmt.Println(aircraft.DbFlag)
-		fmt.Println(aircraft.AcCat)
-		fmt.Println(aircraft.AcSrc)
-		fmt.Println(aircraft.HbarFt)
-		fmt.Println(aircraft.HgeoFt)
-		fmt.Println(aircraft.SpdGroundKtsX10)
-		fmt.Println(aircraft.Timestamp)
-		fmt.Println("")
+	if resultCode != 0 {
+		return resultCode
 	}
-	return resultCode
+
+	if configMap["OutputType"] != "csv" {
+		return handleError([2]byte{0x00, 0x05}, errors.New("for now only saving to csv is available"))
+	}
+
+	return writeToCsv(aircrafts, configMap["OutputDirectory"])
 }
 
 func main() {
 
-	mainLog = log.New(os.Stdout, "Main: ", log.LstdFlags|log.Lmicroseconds)
+	mainLog = log.New(os.Stdout, "Ailrun: ", log.LstdFlags|log.Lmicroseconds)
 	errorLog = log.New(os.Stderr, "Error: ", log.LstdFlags|log.Lmicroseconds)
 	warningLog = log.New(os.Stdout, "Warning: ", log.LstdFlags|log.Lmicroseconds)
 

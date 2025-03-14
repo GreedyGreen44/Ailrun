@@ -52,8 +52,8 @@ func checkMap(configMap map[string]string) (resultCode int) {
 	if _, ok := configMap["OutputType"]; !ok {
 		return handleError([2]byte{0x01, 0x03}, errors.New("no OutputType parameter in config"))
 	}
-	if _, ok := configMap["OutputName"]; !ok {
-		return handleError([2]byte{0x01, 0x03}, errors.New("no OutputName parameter in config"))
+	if _, ok := configMap["OutputDirectory"]; !ok {
+		return handleError([2]byte{0x01, 0x03}, errors.New("no OutputDirectory parameter in config"))
 	}
 	if _, ok := configMap["TimerValueSecs"]; !ok {
 		return handleError([2]byte{0x01, 0x03}, errors.New("no TimerValueSecs parameter in config"))
