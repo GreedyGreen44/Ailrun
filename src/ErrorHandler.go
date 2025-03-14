@@ -12,6 +12,8 @@ func handleError(errorCode [2]byte, err error) int {
 			warningLog.Printf("Decompressing warning, %v. Ailrun continue to work\n", err)
 		case 0x04:
 			warningLog.Printf("Data processing warning, %v. Ailrun continue to work\n", err)
+		case 0x05:
+			warningLog.Printf("Saving result error %v, Ailrun continue to work\n", err)
 		default:
 			warningLog.Printf("Unexpected minor error code %v, Ailrun continue to work\n", int(errorCode[0]))
 		}
