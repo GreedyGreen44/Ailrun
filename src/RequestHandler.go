@@ -17,7 +17,7 @@ func handleRequest(configMap map[string]string) (compressedData []byte, resultCo
 	}
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return nil, handleError([2]byte{0x01, 0x04}, err)
+		return nil, handleError([2]byte{0x00, 0x06}, err)
 	}
 	defer res.Body.Close()
 	resultCode = checkResponse(res)
