@@ -3,7 +3,7 @@ Pretty straightforward app to get info from [globe.adsbexchange.com](https://glo
 
 For now supports only getting aircrafts information from defined map box and saving them to csv file periodically
 
-# Config file example
+## Config file example
 
 Here is example of config file used by application
 
@@ -21,10 +21,28 @@ TimerValueSecs=300
 UserAgent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
 ```
 
-# Dependencies
+## Docker image
+
+Additionally you can pull a docker image:
+```
+docker pull greedygreen44/ailrun
+```
+
+Note, that running inside a container requires sharing local directories with it, like this:
+
+```bash
+docker run -t -v local/directory/with/configs:/Ailrun/configs:ro -v local/output/directory:Ailrun/output:rw greedygreen44/ailrun /Ailrun/configs/config.txt
+```
+Also you have to change OutputDirectory parameter in config file to match container internal configs directory:
+
+```
+OutputDirectory=/Ailrun/configs
+```
+
+## Dependencies
 For decompressing zstd response [klauspost/compress](https://github.com/klauspost/compress/tree/master/zstd) is used
 
-# Note
+## Note
 
 Note, that according to adsbExchange [Terms and Conditions](https://www.adsbexchange.com/legal-and-privacy/) commercial (for profit or non-profit organization) use requires written authorization from ADS-B Exchange.
 You can read about other conditions of using provided data [here](https://rapidapi.com/adsbx/api/adsbexchange-com1)
