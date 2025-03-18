@@ -33,10 +33,10 @@ Note, that running inside a container requires sharing local directories with it
 ```bash
 docker run -t -v local/directory/with/configs:/Ailrun/configs:ro -v local/output/directory:Ailrun/output:rw greedygreen44/ailrun /Ailrun/configs/config.txt
 ```
-Also you have to change OutputDirectory parameter in config file to match container internal configs directory:
+Also you have to change OutputDirectory parameter in config file to match container internal output directory:
 
 ```
-OutputDirectory=/Ailrun/configs
+OutputDirectory=/Ailrun/output
 ```
 
 ## Dependencies
