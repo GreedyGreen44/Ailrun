@@ -33,8 +33,8 @@ func processData(decompressedData []byte) (aircrafts []AircraftInfo, resultCode 
 	for offset < dataSize {
 		aircrafts[i] = AircraftInfo{
 			Hexcode:      hex.EncodeToString([]byte{decompressedData[offset+2], decompressedData[offset+1], decompressedData[offset]}),
-			Lat:          float32(int32(binary.LittleEndian.Uint32(decompressedData[offset+8:offset+12]))) / 1000000,
-			Long:         float32(int32(binary.LittleEndian.Uint32(decompressedData[offset+12:offset+16]))) / 1000000,
+			Lat:          float32(int32(binary.LittleEndian.Uint32(decompressedData[offset+12:offset+16]))) / 1000000,
+			Long:         float32(int32(binary.LittleEndian.Uint32(decompressedData[offset+8:offset+12]))) / 1000000,
 			Callsign:     re.ReplaceAllString(string(decompressedData[offset+78:offset+86]), ""),
 			AcType:       re.ReplaceAllString(string(decompressedData[offset+88:offset+92]), ""),
 			AcReg:        re.ReplaceAllString(string(decompressedData[offset+92:offset+99]), ""),

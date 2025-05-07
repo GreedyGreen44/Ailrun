@@ -9,23 +9,6 @@ import (
 	"time"
 )
 
-type AircraftInfo struct {
-	Hexcode      string
-	Lat          float32
-	Long         float32
-	Callsign     string
-	AcType       string
-	AcReg        string
-	Squawk       string
-	DbFlag       uint8
-	AcCat        uint8
-	AcSrc        uint8
-	HbarFt       uint16
-	HgeoFt       uint16
-	SpdGroundKts float32
-	Timestamp    uint64
-}
-
 var (
 	mainLog    *log.Logger
 	errorLog   *log.Logger
@@ -57,11 +40,14 @@ func timerTick(configMap map[string]string) (resultCode int) {
 		return resultCode
 	}
 
-	if configMap["OutputType"] != "csv" {
-		return handleError([2]byte{0x00, 0x05}, errors.New("for now only saving to csv is available"))
+	switch configMap["OutputType"] {
+	case "csv":
+		return writeToCsv(aircrafts, configMap["OutputDirectory"])
+	case "json":
+		return writeToJson(aircrafts, configMap["OutputDirectory"])
+	default:
+		return handleError([2]byte{0x01, 0x05}, errors.New("output type is not supported"))
 	}
-
-	return writeToCsv(aircrafts, configMap["OutputDirectory"])
 }
 
 func main() {
